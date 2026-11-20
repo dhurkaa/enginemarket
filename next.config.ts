@@ -1,9 +1,14 @@
 import type { NextConfig } from "next";
+import createNextIntlPlugin from "next-intl/plugin";
+
+const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  cacheComponents: true,
-  partialPrefetching: true,
+  images: {
+    formats: ["image/avif", "image/webp"],
+    deviceSizes: [390, 640, 768, 1024, 1280, 1440, 1920],
+  },
+  poweredByHeader: false,
   turbopack: {
     rules: {
       "*.css": {
@@ -14,4 +19,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);

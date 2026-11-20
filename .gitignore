@@ -39,3 +39,22 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# allow the documented example env file
+!.env.example
+
+# client photo zips (originals live outside the repo; the chosen photos are in public/engines)
+*.zip
+
+# reservations store (dev)
+/.data/
+
+# playwright
+/test-results/
+/playwright-report/
+/blob-report/
+
+# taste-skill working files (keep the waivers)
+/.taste-skill/*
+!/.taste-skill/waivers.json
+/shots/
