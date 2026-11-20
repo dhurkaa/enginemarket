@@ -30,8 +30,9 @@ export function Dialog({
     if (open && !d.open) {
       opener.current = document.activeElement as HTMLElement | null;
       d.showModal();
-      // the first field, else the first control, takes the focus
-      const first = d.querySelector<HTMLElement>("input:not([tabindex='-1']), select, textarea, button");
+      // the first field takes the focus; with no field (a sent state), the first button
+      const first =
+        d.querySelector<HTMLElement>("input:not([tabindex='-1']), select, textarea") ?? d.querySelector<HTMLElement>(".dlg__body button, .dlg__body a, button");
       first?.focus();
     } else if (!open && d.open) {
       d.close();

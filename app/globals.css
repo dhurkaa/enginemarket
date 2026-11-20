@@ -271,6 +271,8 @@ main > section.flow + section.flow { padding-top: 0; }
   .buybar__price strong { font: 500 20px/1.2 var(--font-text); font-variant-numeric: tabular-nums; }
   .buybar__price span { font-size: var(--t-label); color: var(--muted); }
   .buybar .btn { flex: none; min-width: 150px; }
+  /* each section's .wrap is its own stacking layer; lift the one that holds the bar above the later ones */
+  main > section:has(.buybar) { position: relative; z-index: 5; }
   body:has(.buybar) footer.closing { padding-bottom: calc(var(--s-6) + 80px); }
   body:has(.buybar) main { padding-bottom: 80px; }
 }

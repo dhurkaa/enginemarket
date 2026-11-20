@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useOptimistic, useState, useTransition } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { GRADES, type Grade } from "@/config/site";
@@ -21,9 +21,14 @@ export function StockBrowser({ catalogue }: { catalogue: CarCatalogue }) {
   const router = useRouter();
   const pathname = usePathname();
   const params = useSearchParams();
-  const query = useMemo(() => parseStockQuery(new URLSearchParams(params.toString())), [params]);
-  const view = params.get("view") === "table" ? "table" : "cards";
-  const apiKey = useMemo(() => stockQueryToParams(query).toString(), [query]);
+  // the URL is the source of truth; the controls show the change at once (optimistic) while it lands there
+  const urlQuery = useMemo(() => parseStockQuery(new URLSearchParams(params.toString())), [params]);
+  const urlView = params.get("view") === "table" ? "table" : "cards";
+  const apiKey = useMemo(() => stockQueryToParams(urlQuery).toString(), [urlQuery]);
+  const [, startTransition] = useTransition();
+  const [opt, setOpt] = useOptimistic({ query: urlQuery, view: urlView });
+  const query = opt.query;
+  const view = opt.view;
 
   const [attempt, setAttempt] = useState(0);
   const [filtersOpen, setFiltersOpen] = useState(false);
@@ -51,10 +56,14 @@ export function StockBrowser({ catalogue }: { catalogue: CarCatalogue }) {
   const push = useCallback(
     (next: Partial<StockQuery> & { view?: string }, resetPage = true) => {
       const merged = { ...query, view, ...next, ...(resetPage ? { page: 1 } : {}) };
+      const { view: nextView, ...nextQuery } = merged;
       const s = stockQueryToParams(merged).toString();
-      router.replace(s ? `${pathname}?${s}` : pathname, { scroll: false });
+      startTransition(() => {
+        setOpt({ query: nextQuery, view: nextView === "table" ? "table" : "cards" });
+        router.replace(s ? `${pathname}?${s}` : pathname, { scroll: false });
+      });
     },
-    [query, view, router, pathname],
+    [query, view, router, pathname, setOpt],
   );
 
   const models = catalogue.find((c) => c.make === query.make)?.models ?? [];

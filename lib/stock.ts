@@ -66,7 +66,9 @@ function fitsCar(e: Engine, make?: string, model?: string, year?: string): boole
 
 export async function queryStock(query: StockQuery): Promise<StockPage> {
   const all = await getAllEngines();
+  // sold engines leave the list; their pages stay up for old links and point to similar engines
   let items = all.filter((e) => {
+    if (e.status === "sold") return false;
     if (query.q && !matchesText(e, query.q)) return false;
     if (!fitsCar(e, query.make, query.model, query.year)) return false;
     if (query.fuel && e.fuel !== query.fuel) return false;

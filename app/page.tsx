@@ -9,6 +9,9 @@ import { CarPicker } from "@/components/car-picker";
 import { ChecksList, Compression } from "@/components/test-sheet";
 import { Arrow, GradeBadge } from "@/components/ui";
 
+/** Featured cards show live status (a reservation), so the page is rebuilt at most once a minute. */
+export const revalidate = 60;
+
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("meta");
   return {

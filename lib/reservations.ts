@@ -29,7 +29,7 @@ function storeFile(): string {
   if (process.env.RESERVATIONS_FILE) return process.env.RESERVATIONS_FILE;
   // Vercel and similar hosts only allow writes under the OS temp folder.
   if (process.env.VERCEL) return path.join(os.tmpdir(), "enginemarket-reservations.json");
-  return path.join(process.cwd(), ".data", "reservations.json");
+  return path.join(/* turbopackIgnore: true */ process.cwd(), ".data", "reservations.json");
 }
 
 async function readAll(): Promise<Reservation[]> {
