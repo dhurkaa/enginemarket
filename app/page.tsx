@@ -80,7 +80,7 @@ export default async function HomePage() {
                 src="/engines/em-0001/1.jpg"
                 alt={t("heroAlt")}
                 fill
-                sizes="(max-width: 639px) 100vw, 1280px"
+                sizes="(max-width: 639px) 170vw, 1280px"
                 fetchPriority="high"
                 loading="eager"
                 style={{ ["--ly-pos" as string]: "50% 52%" }}
@@ -140,67 +140,47 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="section g2" id="sheet" aria-labelledby="sheet-h">
+      <section className="section" id="sheet" aria-labelledby="sheet-h">
         <div className="wrap">
-          <div className="group">
-            <div className="grid grid--top">
-              <div className="span-5">
-                <div className="section-head">
-                  <h2 id="sheet-h">{t("sheetTitle")}</h2>
-                  <p>{t("sheetLine")}</p>
-                </div>
-                <ul className="rows rows--spec">
-                  {(["compression", "checks", "donor", "proof", "included", "fits"] as const).map((k) => (
-                    <li key={k}>
-                      <span className="rows__name">{t(`sheetRows.${k}`)}</span>
-                      <span className="rows__value">{t(`sheetRows.${k}Value`)}</span>
-                    </li>
-                  ))}
-                </ul>
+          <div className="grid grid--top">
+            <div className="span-6">
+              <div className="section-head">
+                <h2 id="sheet-h">{t("sheetTitle")}</h2>
+                <p>{t("sheetLine")}</p>
               </div>
-              <a className="span-6 start-7 sheet-card card" href={enginePath(sample)} aria-label={`${t("sheetLink")}: ${sample.code}`}>
-                <div className="sheet-card__head">
-                  <div>
-                    <p className="sheet-card__code">{sample.code}</p>
-                    <p className="t-small muted">
-                      {sample.make} {sample.family}
-                    </p>
-                  </div>
-                  <GradeBadge grade={sample.grade} label={tc("grade", { grade: sample.grade })} size="lg" />
-                </div>
-                <Compression e={sample} legend={false} />
-                <ChecksList checks={sample.checks.slice(0, 4)} />
-                <span className="link">{t("sheetLink")}</span>
-              </a>
-            </div>
-          </div>
-          <div className="group">
-            <div className="section-head section-head--split">
-              <div>
-                <h3 className="t-h2-like" style={{ font: "var(--display-weight) var(--t-h2)/1.1 var(--font-display)", letterSpacing: "var(--display-tracking)" }}>
-                  {t("gradesTitle")}
-                </h3>
-                <p>{t("gradesLine")}</p>
-              </div>
-              <a className="link" href="/grades">
+              <ul className="rows">
+                {GRADES.map((g) => (
+                  <li key={g} className="grade-row">
+                    <span className="rows__name">
+                      <GradeBadge grade={g} label={tg(`${g}.name`)} size="sm" />
+                      {tg(`${g}.short`)}
+                    </span>
+                    <span className="rows__value">{tc("months", { count: site.grades[g].months })}</span>
+                  </li>
+                ))}
+              </ul>
+              <a className="link" href="/grades" style={{ marginTop: "var(--s-5)" }}>
                 {t("gradesLink")}
               </a>
             </div>
-            <div className="grade-tiles">
-              {GRADES.map((g) => (
-                <div className="grade-tile" key={g}>
-                  <GradeBadge grade={g} label={tg(`${g}.name`)} size="lg" />
-                  <p className="grade-tile__months">{tc("months", { count: site.grades[g].months })}</p>
-                  <h4 style={{ font: "500 var(--t-card)/1.3 var(--font-text)" }}>{tg(`${g}.short`)}</h4>
-                  <p>{tg(`${g}.text`)}</p>
+            <a className="span-6 start-7 sheet-card card" href={enginePath(sample)} aria-label={`${t("sheetLink")}: ${sample.code}`}>
+              <div className="sheet-card__head">
+                <div>
+                  <p className="sheet-card__code">{sample.code}</p>
+                  <p className="t-small muted">
+                    {sample.make} {sample.family}
+                  </p>
                 </div>
-              ))}
-            </div>
+                <GradeBadge grade={sample.grade} label={tc("grade", { grade: sample.grade })} size="lg" />
+              </div>
+              <Compression e={sample} legend={false} />
+              <ChecksList checks={sample.checks.slice(0, 3)} />
+            </a>
           </div>
         </div>
       </section>
 
-      <section className="section" id="stock" aria-labelledby="stock-h">
+      <section className="section" id="stock" style={{ ["--hm" as string]: 2 }} aria-labelledby="stock-h">
         <div className="wrap">
           <div className="section-head section-head--split">
             <div>
@@ -213,7 +193,7 @@ export default async function HomePage() {
           </div>
           <div className="home-cards">
             {featured.map((e) => (
-              <EngineCard key={e.id} e={e} sizes="(max-width: 1023px) 50vw, 302px" />
+              <EngineCard key={e.id} e={e} photo={e.id === "em-0001" ? 2 : 0} sizes="(max-width: 1023px) 50vw, 302px" />
             ))}
           </div>
           <div className="facts-row">
@@ -227,7 +207,7 @@ export default async function HomePage() {
       <section className="section ground-brand" id="sourcing" aria-labelledby="sourcing-h">
         <div className="wrap">
           <div className="grid grid--top">
-            <div className="span-5">
+            <div className="span-6">
               <div className="section-head">
                 <h2 id="sourcing-h">{t("sourcingTitle")}</h2>
                 <p>{t("sourcingLine")}</p>

@@ -97,11 +97,11 @@ export default async function EnginePage({ params }: Props) {
             <div className="sheet-head">
               <div>
                 <h1 id="engine-h">
-                  {e.code}
-                  <small>
-                    {e.make} {e.family} · {tc(`fuel.${e.fuel}`)}
-                  </small>
+                  <span className="sheet-head__code">{e.code}</span> <span className="sheet-head__name">{e.make} {e.family} engine</span>
                 </h1>
+                <p className="sheet-head__sub">
+                  {tc(`fuel.${e.fuel}`)} · {litres(e.displacementCc)} l · {e.powerKw} kW
+                </p>
                 <dl className="spec-facts" aria-label={t("facts")}>
                   <div>
                     <dt>{tc("mileage")}</dt>

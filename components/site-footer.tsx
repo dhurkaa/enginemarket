@@ -66,8 +66,8 @@ export async function SiteFooter() {
           </div>
           <div className="footer__legal">
             <span>
-              &copy; {year} {site.name} &nbsp; <a href="/legal/privacy">{t("privacy")}</a> &nbsp;{" "}
-              <a href="/legal/terms">{t("terms")}</a> &nbsp; <a href="/legal/imprint">{t("imprint")}</a> &nbsp;{" "}
+              <span>&copy; {year} {site.name}</span> <a href="/legal/privacy">{t("privacy")}</a>
+              <a href="/legal/terms">{t("terms")}</a> <a href="/legal/imprint">{t("imprint")}</a>
               <a href="/legal/cookies">{t("cookies")}</a>
             </span>
             <span>{t("trademarks")}</span>

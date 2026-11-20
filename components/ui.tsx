@@ -45,31 +45,25 @@ export function CylinderMap({
 }) {
   const top = Math.max(spec.nominal * 1.12, ...values);
   const pct = (v: number) => `${Math.round((v / top) * 1000) / 10}%`;
+  const summary = values.map((v, i) => `${labels.cylinder(i + 1)} ${v.toFixed(1)} ${labels.unit}, ${labels.health[cylinderHealth(v, spec)]}`).join("; ");
   return (
     <div className="cylmap" style={{ ["--cyl" as string]: values.length }}>
-      <div className="cylmap__blocks" role="list">
-        <span className="cylmap__line cylmap__line--nominal" style={{ bottom: pct(spec.nominal) }} aria-hidden="true" />
-        <span className="cylmap__line cylmap__line--min" style={{ bottom: pct(spec.min) }} aria-hidden="true" />
-        {values.map((v, i) => {
-          const h = cylinderHealth(v, spec);
-          return (
-            <div
-              key={i}
-              className="cylmap__cyl"
-              data-health={h}
-              role="listitem"
-              aria-label={`${labels.cylinder(i + 1)}: ${v.toFixed(1)} ${labels.unit}, ${labels.health[h]}`}
-            >
-              <span className="cylmap__fill" style={{ height: pct(v) }} aria-hidden="true" />
-              <span className="cylmap__value" aria-hidden="true">
-                {v.toFixed(1)}
-              </span>
-              <span className="cylmap__name" aria-hidden="true">
-                {labels.short(i + 1)}
-              </span>
+      <div className="cylmap__chart" role="img" aria-label={`${labels.spec}. ${summary}.`}>
+        <div className="cylmap__blocks">
+          <span className="cylmap__line cylmap__line--nominal" style={{ bottom: pct(spec.nominal) }} />
+          <span className="cylmap__line cylmap__line--min" style={{ bottom: pct(spec.min) }} />
+          {values.map((v, i) => (
+            <div key={i} className="cylmap__cyl" data-health={cylinderHealth(v, spec)}>
+              <span className="cylmap__fill" style={{ height: pct(v) }} />
+              <span className="cylmap__value">{v.toFixed(1)}</span>
             </div>
-          );
-        })}
+          ))}
+        </div>
+        <div className="cylmap__names">
+          {values.map((_, i) => (
+            <span key={i}>{labels.short(i + 1)}</span>
+          ))}
+        </div>
       </div>
       <p className="cylmap__spec">
         <span>{labels.spec}</span>

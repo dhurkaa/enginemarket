@@ -1,0 +1,22 @@
+[
+  {
+    "check": "phone-number",
+    "target": "footer__col",
+    "reason": "The brief gives this phone number (+421 2 3300 4400) and asks for it on the site; it is listed in PLACEHOLDER_DATA.md for the client to confirm."
+  },
+  {
+    "check": "photo-repeat",
+    "target": "div.span-6.start-7 > img",
+    "reason": "next/image serves every photograph from /_next/image?url=..., so the checker reads one file name ('image') for all of them; each photograph file is used once on the page (the brief requires next/image)."
+  },
+  {
+    "check": "card-layout",
+    "target": "div.home-cards",
+    "reason": "These are four product listing cards (one engine each: photo, code, grade, price), which a shop grid draws alike on purpose, as sections.md does for goods cards; they are not feature cards."
+  },
+  {
+    "check": "section-gaps",
+    "target": "section.hero.hero--product / section#car",
+    "reason": "The dealt product hero runs its photograph edge to edge down to the fold (layout-v4.md, the product hero), so the gap after the hero is the next section's top padding alone; the other gaps carry each section's unused screen."
+  }
+]

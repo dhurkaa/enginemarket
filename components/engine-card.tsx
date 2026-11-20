@@ -9,7 +9,19 @@ import { CylinderStrip, GradeBadge } from "@/components/ui";
  * One engine as a linked card. With photographs: the first one on white. Without: the compression strip
  * stands in, so the card always shows the engine's own data rather than a borrowed picture.
  */
-export function EngineCard({ e, sizes = "(max-width: 639px) 100vw, (max-width: 1279px) 50vw, 33vw", eager = false }: { e: EngineView; sizes?: string; eager?: boolean }) {
+export function EngineCard({
+  e,
+  sizes = "(max-width: 639px) 100vw, (max-width: 1279px) 50vw, 33vw",
+  eager = false,
+  photo = 0,
+}: {
+  e: EngineView;
+  sizes?: string;
+  eager?: boolean;
+  /** which of its photographs the card shows (a page that shows photo 0 elsewhere picks another) */
+  photo?: number;
+}) {
+  const pi = Math.min(photo, Math.max(0, e.photos.length - 1));
   const t = useTranslations("common");
   const ts = useTranslations("engines");
   const min = Math.min(...e.compressionBar);
@@ -19,8 +31,8 @@ export function EngineCard({ e, sizes = "(max-width: 639px) 100vw, (max-width: 1
       {e.photos.length ? (
         <div className="ecard__media">
           <Image
-            src={e.photos[0]}
-            alt={e.photoAlt?.[0] ?? `${e.make} ${e.code} engine`}
+            src={e.photos[pi]}
+            alt={e.photoAlt?.[pi] ?? `${e.make} ${e.code} engine`}
             fill
             sizes={sizes}
             loading={eager ? "eager" : "lazy"}
