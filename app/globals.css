@@ -6,6 +6,10 @@
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities);
 /* the kit's grid classes (start-7, span-6) are not Tailwind's inset utilities: keep Tailwind from generating those */
+/* never scan the checker's working folder (a Chrome profile with locked files) or the vendored kit */
+@source not "../.taste-skill";
+@source not "../public/assets";
+@source not "../test-results";
 @source not inline("start-{1,2,3,4,5,6,7,8,9,10,11,12}");
 
 @theme inline {
