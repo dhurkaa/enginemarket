@@ -1,0 +1,25 @@
+{
+  "_note": "PLACEHOLDER delivery prices and times, EUR incl. VAT, for one engine on one pallet. The client replaces them before launch.",
+  "countries": [
+    { "code": "SK", "name": "Slovakia", "priceEur": 45, "days": "1–2" },
+    { "code": "CZ", "name": "Czechia", "priceEur": 69, "days": "1–2" },
+    { "code": "AT", "name": "Austria", "priceEur": 89, "days": "2–3" },
+    { "code": "HU", "name": "Hungary", "priceEur": 89, "days": "2–3" },
+    { "code": "PL", "name": "Poland", "priceEur": 99, "days": "2–3" },
+    { "code": "SI", "name": "Slovenia", "priceEur": 109, "days": "2–3" },
+    { "code": "DE", "name": "Germany", "priceEur": 119, "days": "2–4" },
+    { "code": "HR", "name": "Croatia", "priceEur": 129, "days": "3–4" },
+    { "code": "NL", "name": "Netherlands", "priceEur": 149, "days": "3–4" },
+    { "code": "BE", "name": "Belgium", "priceEur": 149, "days": "3–4" },
+    { "code": "LU", "name": "Luxembourg", "priceEur": 159, "days": "3–4" },
+    { "code": "IT", "name": "Italy", "priceEur": 159, "days": "3–5" },
+    { "code": "FR", "name": "France", "priceEur": 169, "days": "3–5" },
+    { "code": "DK", "name": "Denmark", "priceEur": 179, "days": "3–5" },
+    { "code": "ES", "name": "Spain", "priceEur": 219, "days": "4–6" },
+    { "code": "PT", "name": "Portugal", "priceEur": 239, "days": "4–6" }
+  ],
+  "pallet": {
+    "maxWeightKg": 300,
+    "secondEngineEur": 40
+  }
+}
